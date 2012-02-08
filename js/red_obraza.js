@@ -22,6 +22,7 @@ $(document).ready(function(){
         }
     });
     var canvas = new fabric.Canvas('c');
+    h = new History(canvas);
 
     var can_el;
     canvas.observe('object:scaling', function(e) { 
@@ -37,9 +38,14 @@ $(document).ready(function(){
         if(e.memo.target.top > HEIGHT - e.memo.target.getHeight()/2) { e.memo.target.set({top: HEIGHT - e.memo.target.getHeight()/2 }) };
     })
     canvas.observe('object:selected', function(e) {
+        $(document).trigger('story:add', { type: 'object:selected', can_el: e.memo.target});
         $('.panel a').removeClass('inactive');
         can_el = e.memo.target;
     });
+
+    canvas.observe('object:modified', function(e) {
+        $(document).trigger('story:add', { type: 'object:modified', can_el: e.memo.target});
+    })
     canvas.observe('selection:cleared', function(e) { $('.panel a').addClass('inactive') });
     canvas.observe('selection:created', function(e) {   });
 
@@ -57,11 +63,13 @@ $(document).ready(function(){
     });
     $('a.flipY').click(function() { 
         if($(this).hasClass('inactive')) { return false };
+        $(document).trigger('story:add', {type: 'object:modified', can_el: can_el});
         can_el.get('flipY') ? can_el.set('flipY', false) : can_el.set('flipY', true); 
         canvas.renderAll(); return false;
     });
     $('a.flipX').click(function() { 
         if($(this).hasClass('inactive')) { return false };
+        $(document).trigger('story:add', {type: 'object:modified', can_el: can_el});
         can_el.get('flipX') ? can_el.set('flipX', false) : can_el.set('flipX', true); 
         canvas.renderAll(); return false;
     });
@@ -85,21 +93,21 @@ $(document).ready(function(){
         return false;
     });
 
-    var _scale = 1;
-    $('a.zoom_inc').click(function() {
-        _scale += 0.1;
-        canvas.forEachObject(function(obj) {
-            obj.scale(_scale);
-            canvas.renderAll();
+    //var _scale = 1;
+    //$('a.zoom_inc').click(function() {
+        //_scale += 0.1;
+        //canvas.forEachObject(function(obj) {
+            //obj.scale(_scale);
+            //canvas.renderAll();
 
-        })
-    })
-    $('a.zoom_dec').click(function() {
-        _scale -= 0.1;
-        canvas.forEachObject(function(obj) {
-            obj.scale(_scale);
-            canvas.renderAll();
+        //})
+    //})
+    //$('a.zoom_dec').click(function() {
+        //_scale -= 0.1;
+        //canvas.forEachObject(function(obj) {
+            //obj.scale(_scale);
+            //canvas.renderAll();
 
-        })
-    })
+        //})
+    //})
 });
