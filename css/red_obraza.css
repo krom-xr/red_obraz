@@ -1,0 +1,4 @@
+a.inactive{ cursor: default; opacity: 0.5 }
+a.removeAll.inactive{ cursor: pointer; opacity: 1 }
+
+.p6{ background: url(../images/clone.png) no-repeat 0 50% }

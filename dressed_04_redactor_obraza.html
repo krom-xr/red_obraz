@@ -1,0 +1,361 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta http-equiv="Content-Language" content="ru" />
+<title></title>
+    <link href="css/style.css" rel="stylesheet" type="text/css" />
+    <link href="css/red_obraza.css" rel="stylesheet" type="text/css" />
+   	<script type="text/javascript" src="js/jquery.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.min.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript" src="js/jquery.easing.1.2.js"></script>
+	<script type="text/javascript" src="js/script.js"></script>
+	<script type="text/javascript" src="js/fabric.js"></script>
+	<script type="text/javascript" src="js/red_obraza.js"></script>
+
+<!--[if IE]>
+	<link rel="stylesheet" href="css/ie.css" type="text/css" media="screen" />
+<![endif]-->
+<!--[if lte IE 6]>
+    <meta http-equiv="refresh" content="0; url=ie6/ie6.html" />
+<![endif]-->
+</head>
+
+<body class="inner" id="redactor">
+
+<div id="content">
+   	<div class="fix">
+    	<!--HEAD-->
+        <div class="head">
+        	<div class="logo"><a href="#"><img src="images/logo1.gif" alt="" /></a></div>
+            <div class="search">
+            	<a href="#">Зарегистрироваться</a><a href="#">Войти в профиль</a>
+                <form method="post" action="" name="search">
+                <input type="submit" value="" name="go" id="srch" />
+                <input type="text" value="Поиск по сайту" onfocus="if (this.value == 'Поиск по сайту') {this.value ='';this.style.color='#000';}" onblur="if (this.value == '') {this.value='Поиск по сайту';this.style.color='#bcbcbc';}" name="q" class="srch" />
+                </form>
+            </div>
+            <ul class="menu">
+            	<li class="mn1"><a href="#" class="mn1"><span>СОЗДАТЬ</span></a>
+                	<ul>
+                    	<li><a href="#">образ</a></li>
+                        <li><a href="#">коллекцию</a></li>
+                        <li><a href="#">конкурс</a></li>
+                        <li><a href="#">статью</a></li>
+                    </ul>
+                </li>
+                <li class="mn1"><a href="#" class="mn1"><span>СТИЛИ</span></a>
+                	<ul>
+                    	<li><a href="#">образ</a></li>
+                        <li><a href="#">конкурс</a></li>
+                        <li><a href="#">статью</a></li>
+                    </ul>
+                </li>
+                <li class="mn1"><a href="#" class="mn1"><span>ВЕЩИ</span></a></li>
+            </ul>
+        	<div class="line"></div>
+		</div>
+    	<!--/HEAD-->
+        <div class="obraz_page">
+           	<h1><a href="#"><span>редактор нового образа</span></a></h1>
+            <div class="crumb"><a href="#">Главная</a><a href="#">создать</a><span>новый образ</span></div>
+        </div>
+    </div>
+    <!--REDACTOR-->
+            <div class="redactor">
+            	<div class="title">
+                	<a href="#" class="close">Закрыть</a>
+                	<a href="#" class="win">&nbsp;</a>
+                	<a href="#" class="faq">&nbsp;</a>
+                	<span>Редактор образа</span>
+                </div>
+                <div class="width">
+                	<div class="all">
+                    	<div class="r_right">
+                        	<div class="imgs" style="overflow: visible">
+                            	<div class="size">
+                                	<a href="#" class="size1">&nbsp;</a>
+                                	<a href="#" class="size2">&nbsp;</a>
+                                	<a href="#" class="size3">&nbsp;</a>
+                                	<a href="#" class="ico16">&nbsp;</a>
+                                	<a href="#" class="ico17">&nbsp;</a>
+                                	<span>1</span>
+                                	<a href="#" class="ico18">&nbsp;</a>
+                                </div>
+                            	<div class="but"><a href="#">По дате</a><a href="#" class="active">По цене</a></div>
+                                <div class="images">
+                                	<a href="#"><img src="images/6.png" alt="" /></a><a href="#"><img src="images/7.png" alt="" /></a>
+                                	<a href="#"><img src="images/8.png" alt="" /></a><a href="#"><img src="images/9.png" alt="" /></a>
+                                	<a href="#"><img src="images/6.png" alt="" /></a><a href="#"><img src="images/7.png" alt="" /></a>
+                                	<a href="#"><img src="images/8.png" alt="" /></a><a href="#"><img src="images/9.png" alt="" /></a>
+                                	<a href="#"><img src="images/6.png" alt="" /></a><a href="#"><img src="images/7.png" alt="" /></a>
+                                	<a href="#"><img src="images/8.png" alt="" /></a><a href="#"><img src="images/9.png" alt="" /></a>
+                                	<a href="#"><img src="images/6.png" alt="" /></a><a href="#"><img src="images/7.png" alt="" /></a>
+                                	<a href="#"><img src="images/8.png" alt="" /></a><a href="#"><img src="images/9.png" alt="" /></a>
+                                </div>
+                            </div>
+                            <div class="red">
+                            	<div class="vechi">
+                                	<div class="title_v"><a href="#" class="button2">купить</a><span>Вещи с образа</span></div>
+                                    <div class="vechi_list">
+                                    	<div class="list_scrol">
+                                        	<div class="up"></div>
+                                        	<div class="drag"></div>
+                                        	<div class="down"></div>
+                                        </div>
+                                    	<div class="list_table">
+                                        	<table cellpadding="0" cellspacing="0">
+                                            <tr class="title_td">
+                                            	<td>Категория</td>
+                                            	<td>Бренд</td>
+                                            	<td>Описание</td>
+                                            	<td>Стоимость</td>
+                                            </tr>
+                                            <tr>
+                                            	<td>Украшения</td>
+                                            	<td>Gucci</td>
+                                            	<td>Ikea vase</td>
+                                            	<td>5 700 руб.</td>
+                                            </tr>
+                                            <tr>
+                                            	<td>Украшения</td>
+                                            	<td>Gucci</td>
+                                            	<td>Ikea vase</td>
+                                            	<td>5 700 руб.</td>
+                                            </tr>
+                                            <tr>
+                                            	<td>Украшения</td>
+                                            	<td>Gucci</td>
+                                            	<td>Ikea vase</td>
+                                            	<td>5 700 руб.</td>
+                                            </tr>
+                                            <tr>
+                                            	<td>Украшения</td>
+                                            	<td>Gucci</td>
+                                            	<td>Ikea vase</td>
+                                            	<td>5 700 руб.</td>
+                                            </tr>
+                                            <tr>
+                                            	<td>Украшения</td>
+                                            	<td>Gucci</td>
+                                            	<td>Ikea vase</td>
+                                            	<td>5 700 руб.</td>
+                                            </tr>
+                                            <tr>
+                                            	<td>Украшения</td>
+                                            	<td>Gucci</td>
+                                            	<td>Ikea vase</td>
+                                            	<td>5 700 руб.</td>
+                                            </tr>
+                                            </table>
+                                        </div>
+                                    </div>
+                                	<div class="stoit"><a href="#" class="button">сохранить</a><span>Общая стоимость: <strong>15 650 руб</strong></span><a href="#" class="button2">купить всё</a></div>
+                                </div>
+                            	<div class="panel " disabled >
+                                	<a href="#" class="button1">оформление</a>
+                                	<a href="#" class="button1 removeAll inactive">удалить всё</a>
+                                	<a href="#" class="button1 remove inactive">удалить</a>
+                                	<a href="#" class="p1 flipX inactive">&nbsp;</a>
+                                	<a href="#" class="p2 flipY inactive">&nbsp;</a>
+                                	<a href="#" class="p3 bringForward inactive">&nbsp;</a>
+                                	<a href="#" class="p4 sendBackwards inactive">&nbsp;</a>
+                                	<a href="#" class="p6 clone inactive" title="клонировать">&nbsp;</a>
+                                    <!--<a href="#" class="p4 zoom_inc">+</a>-->
+                                    <!--<a href="#" class="p4 zoom_dec">-</a>-->
+                                	<a href="#" class="p5">&nbsp;</a>
+                                </div>
+                                <div class="drop">
+                                    <canvas id="c" style="border: 1px solid rgb(204, 204, 204);" width="1000" height="600px"  ></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="r_left">
+                    	<div class="filter">
+                        	<div class="but"><a href="#" class="active">Все вещи</a><a href="#">Мои вещи</a></div>
+                        	<div class="search">
+                                <form method="post" action="" name="search_obraz">
+                                <input type="submit" value="" name="go" id="srchf" />
+                                <input type="text" value="Поиск" onfocus="if (this.value == 'Поиск') {this.value ='';this.style.color='#000';}" onblur="if (this.value == '') {this.value='Поиск';this.style.color='#bcbcbc';}" name="qq" class="srch" />
+                                </form>
+                            </div>
+                        	<ul>
+                            	<li><a href="#" class="f1">Женщинам</a></li>
+                            	<li class="active"><a href="#" class="f1">мужчинам</a>
+                                	<div class="select">
+                                    	<select name="www"><option>Интернет-магазины</option><option>Интернет-магазины</option></select>
+                                        <select name="city"><option>Москва</option><option>Москва</option></select>
+                                    </div>
+                                </li>
+                            	<li><a href="#" class="f1">все категории</a></li>
+                            	<li><a href="#" class="f1">аксессуары</a>
+                                	<ul>
+                                    	<li><a href="#">Бижутерия</a></li>
+                                    	<li><a href="#">Кошельки</a></li>
+                                    	<li><a href="#">Платки</a></li>
+                                    	<li><a href="#">Ремни</a></li>
+                                    	<li><a href="#">Украшения для волос</a></li>
+                                    	<li><a href="#">Часы</a></li>
+                                    </ul>
+                                </li>
+                            	<li><a href="#" class="f1">верхняя одежда</a></li>
+                            	<li><a href="#" class="f1">обувь</a></li>
+                            	<li><a href="#" class="f1">одежда</a></li>
+                            	<li><a href="#" class="f1">портфели, сумки</a></li>
+                            	<li><a href="#" class="f1">украшения</a></li>
+                                <li>&nbsp;</li>
+                            	<li><a href="#" class="f1">Мои вещи</a>
+                                	<ul>
+                                    	<li><a href="#">Организовать</a></li>
+                                    	<li><a href="#">Загрузить</a></li>
+                                    	<li><a href="#">Метки</a></li>
+                                    </ul>
+                                </li>
+                                <li>&nbsp;</li>
+                            	<li><a href="#" class="f1">фильтровать по</a>
+                                	<ul>
+                                    	<li><a href="#">Бренд</a>
+                                        	<ul>
+                                            	<li><a href="#">Antik Batik</a></li>
+                                            	<li><a href="#">lanvin</a></li>
+                                            </ul>
+                                        </li>
+                                    	<li><a href="#">Магазин</a></li>
+                                    	<li><a href="#">Торговая сеть</a></li>
+                                    	<li><a href="#">Цена</a></li>
+                                    </ul>
+                                </li>
+                                <li>&nbsp;</li>
+                            	<li><a href="#" class="f1">цвет</a>
+                                	<ul>
+                                    	<li><a href="#">Все</a>
+                                        	<div class="color">
+                                            	<span class="color" style="background:#e57102;">&nbsp;</span>
+                                                <span class="color" style="background:#4d534f;">&nbsp;</span>
+                                                <span class="color" style="background:#fbd802;">&nbsp;</span>
+                                                <span class="color" style="background:#520088;">&nbsp;</span>
+                                                <span class="color" style="background:#d51d01;">&nbsp;</span>
+                                                <span class="color" style="background:#66a401;">&nbsp;</span>
+                                                <span class="color" style="background:#3e0ccd;">&nbsp;</span>
+                                                <span class="color" style="background:#000000;">&nbsp;</span>
+                                            </div>
+                                        </li>
+                                    </ul>
+                            	</li>
+                            </ul>
+                            <div class="clear"></div>
+                        </div>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+            </div>
+    <!--END REDACTOR-->
+    <div id="clearfooter"></div>
+</div>
+<!--Footer-->
+<div id="footer">
+    <div class="foot">
+    	<ul class="f_top">
+        	<li class="logo"><a href="#"><img src="images/logo2.gif" alt="" /></a></li>
+            <li class="copy"><p>© 2010–2011 Dressed. Сервис по сочетанию вещей из разных магазинов и подбор стиля. Использование материалов Dressed разрешено только при наличии активной ссылки на источник. Все права на картинки и тексты принадлежат их авторам.</p></li>
+            <li class="dis"><a href="#">Дизайн сайта</a> любезно нарисован студией Nineseven</li>
+        </ul>
+        <ul class="menuf">
+        	<li><div>Моё</div><a href="#">Главная</a><br /><a href="#">Загрузчик изделий</a><br /><a href="#">Заказ вещей из-за рубежа </a></li>
+        	<li><div>Люди</div><a href="#">Лучшие авторы месяца</a><br /><a href="#">Лучшие авторы за всё время</a><br /><a href="#">Сейчас на сайте</a><br /><a href="#">Поиск пользователей</a></li>
+        	<li><div>Работы</div><a href="#">Недавно добавленные</a><br /><a href="#">Лучшие за день</a><br /><a href="#">Лучшие за неделю</a><br /><a href="#">Лучшие за всё время</a><br /><a href="#">Случайный образ</a><br /><a href="#">Конкурсы </a></li>
+        	<li><div>Сотрудничество</div><a href="#">Магазинам</a><br /><a href="#">Стилистам</a><br /><a href="#">Бренд-конкурс</a><br /><a href="#">Редактор на Вашем сайте</a><br /><a href="#">Медийная реклама</a><br /><a href="#">Авторское право </a></li>
+        	<li><div>Другое</div><a href="#">Новости и статьи</a><br /><a href="#">Помощь</a><br /><a href="#">О проекте</a><br /><a href="#">Контакты</a><br /><span>&nbsp;</span><br /><a href="#"><img src="images/ban1.gif" alt="" /></a></li>
+        </ul>
+    </div>
+</div>
+<!--/Footer-->
+
+<div class="window" id="log">
+	<div class="close"><span>Закрыть</span></div>
+	<ul class="vk_menu">
+    	<li id="v2"><span>Регистрация пользователя</span></li>
+    	<li id="v1" class="active"><span>Авторизация пользователя</span></li>
+    </ul>
+    <div class="form_aut">
+    	<div class="input"><label>Логин:</label><p><input type="text" value="" name="login" /></p></div>
+        <div class="input"><label>Пароль:</label><p><input type="text" value="" name="pass" /></p></div>
+    	<div class="input"><label>&nbsp;</label><label class="ch"><input type="checkbox" value="" checked="checked" name="zap" /><span>Запомнить меня</span></label></div>
+    	<div class="input"><label>Логин:</label><input class="button" type="submit" value="войти" name="enter" /><a href="#" class="rem">Забыли пароль ?</a></div>
+        <a href="#">Вы еще не зарегистрированы в модном сообществе Dressed.ru ?</a>
+    </div>
+    <div class="sn1"><span>Войти с помощью:</span><a href="#"><img src="images/s1.gif" alt="" /></a><a href="#"><img src="images/s2.gif" alt="" /></a><a href="#"><img src="images/s3.gif" alt="" /></a></div>
+</div>
+
+<div class="window" id="save">
+	<div class="close"><span>Закрыть</span><strong>Сохранение образа</strong></div>
+    <div class="form_save">
+    	<div class="input"><label>Название:</label><p><input type="text" value="" name="login" /></p></div>
+        <div class="input"><label>Описание:</label><p><textarea name="text_op" rows="0" cols="0"></textarea></p></div>
+    	<div class="input">
+        	<label>Стиль:</label><p><input type="submit" value="" name="go_st" id="srch_st" /><input type="text" value="Поиск стиля" onfocus="if (this.value == 'Поиск стиля') {this.value ='';this.style.color='#000';}" onblur="if (this.value == '') {this.value='Поиск стиля';this.style.color='#bcbcbc';}" name="q_st" class="srch_st" /></p>
+        	<div class="checks">
+            	<label><input type="checkbox" checked="checked" value="" name="filtr" /><span>Весенняя рапсодия</span></label>
+            	<label><input type="checkbox" value="" name="filtr" /><span>пляжная вечеринка</span></label>
+            	<label><input type="checkbox" value="" name="filtr" /><span>madonna</span></label>
+            	<label><input type="checkbox" value="" name="filtr" /><span>весна 2011</span></label>
+            	<label><input type="checkbox" value="" name="filtr" /><span>весна 2011</span></label>
+            	<label><input type="checkbox" value="" name="filtr" /><span>Dolce</span></label>
+            	<label><input type="checkbox" value="" name="filtr" /><span>Dolce</span></label>
+            	<label><input type="checkbox" value="" name="filtr" /><span>madonna</span></label>
+            	<label><input type="checkbox" value="" name="filtr" /><span>пляжная вечеринка</span></label>
+            	<label><input type="checkbox" value="" name="filtr" /><span>Весенняя рапсодия</span></label>
+            </div>
+        </div>
+    	<div class="input" style="margin:0;"><label>Конкурс:</label>
+        	<div class="best_statii">
+                <ul>
+                    <li>
+                    	<div class="radio"><input type="radio" value="1" name="kon" /></div>
+                        <div class="tit">«<a href="#">весна весной, а лето уже близко</a>»</div>
+                        <a href="#"><img src="images/11.gif" alt="" /></a>
+                        <span>22 апреля 2011<br />Количество просмотров — 34<br />Автор конкурса: <a href="#" class="user">Sonia</a></span>
+                    </li>
+                    <li>
+                    	<div class="radio"><input type="radio" value="1" name="kon" /></div>
+                        <div class="tit">«<a href="#">весна весной, а лето уже близко</a>»</div>
+                        <a href="#"><img src="images/11.gif" alt="" /></a>
+                        <span>22 апреля 2011<br />Количество просмотров — 34<br />Автор конкурса: <a href="#" class="user">Sonia</a></span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    	<div class="input"><label>Опубликовать:</label><label class="ch"><input type="checkbox" value="" name="op" /><span>Если отмечено «Опубликовать», образ попадает в общий каталог</span></label></div>
+    </div>
+    <div class="buttons">
+    	<input class="button" type="submit" value="сохранить образ" name="enter" />
+        <a href="#" class="save_us"><span>сохранить как изображение</span></a>
+    </div>
+</div>
+
+<div class="best_obraz" style="display: none">
+	<div class="best_c">
+    	<div class="title"><a>лучшие образы</a><span>&nbsp;</span></div>
+        <div class="best_cc">
+            <div class="prev"></div>
+            <div class="next"></div>
+            <div class="slide">
+                <ul>
+                    <li><a href="#"><img src="images/1.jpg" alt="" /></a></li>
+                    <li><a href="#"><img src="images/1.jpg" alt="" /></a></li>
+                    <li><a href="#"><img src="images/1.jpg" alt="" /></a></li>
+                    <li><a href="#"><img src="images/1.jpg" alt="" /></a></li>
+                    <li><a href="#"><img src="images/1.jpg" alt="" /></a></li>
+                    <li><a href="#"><img src="images/1.jpg" alt="" /></a></li>
+                    <li><a href="#"><img src="images/1.jpg" alt="" /></a></li>
+                    <li><a href="#"><img src="images/1.jpg" alt="" /></a></li>
+                    <li><a href="#"><img src="images/1.jpg" alt="" /></a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="popup"></div>
+</body>
+</html>

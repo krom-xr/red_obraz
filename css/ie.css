@@ -1,0 +1,45 @@
+input[type=checkbox], input[type=radio] {
+  width: 14px !important;
+  height: 15px !important;
+}
+input[type=radio] {
+  padding: 0px !important;
+  margin:0px 8px 0 0 !important;
+  border: 0px !important;
+}
+
+		div.answer input{
+			position:absolute;
+		}
+		.test .answer input { left:-9999px; visibility:visible;}
+		div.answer span.inputRadio{
+			display:inline;
+			zoom:1;
+			width:17px;
+			height:17px;
+			background:url(../images/radioBut.png) left -17px no-repeat;
+			margin:0px 5px 2px 0px;
+			vertical-align:middle;
+			position:absolute;
+		}
+		div.answer.checked span.inputRadio{
+			background:url(../images/radioBut.png) left 2px no-repeat;
+		}
+		
+		div.answer_ch input{
+			position:absolute;
+		}
+		.answer_ch input { left:-9999px; visibility:visible;}
+		div.answer_ch span.inputRadio{
+			display:inline;
+			zoom:1;
+			width:13px;
+			height:14px;
+			background:url(../images/check.gif) left 2px no-repeat;
+			margin:0px 5px 2px 0px;
+			vertical-align:middle;
+			position:absolute;
+		}
+		div.answer_ch.checked span.inputRadio{
+			background:url(../images/check.gif) left -16px no-repeat;
+		}
