@@ -1,18 +1,21 @@
 /*
  * объект сохранения истории
+ * events
+ * object:modified
+ * object:selected
  * */
 var History = function(canvas, options) {
     var it = this;
 
     this.opt = jQuery.extend({
-        back: '#back',
-        forward: '#forward',
+        back: '#back', //кнопка вперед
+        forward: '#forward', //кнопка назад
     }, options);
 
     this.setButtonsState();
 
-    $(document).on('click', this.opt.back,    function() { it.backHistory();    return false });
-    $(document).on('click', this.opt.forward, function() { it.forwardHistory(); return false });
+    $(this.opt.back).on('click',    function() { it.backHistory();    return false });
+    $(this.opt.forward).on('click', function() { it.forwardHistory(); return false });
 
     this.canvas = canvas;
 
@@ -27,8 +30,13 @@ var History = function(canvas, options) {
                 History.forward = [];
                 _selected = it.setState(data);
             }
-            it.setButtonsState();
         }
+        if (data.type == 'object:removed') {
+            _selected = it.setState(data, 'removed');
+            History.forward = [];
+            History.back.push(_selected);
+        };
+        it.setButtonsState();
     });
 }
 
@@ -37,36 +45,49 @@ History.forward = [];
 
 // Восстанавливает состояние объекта полученное из истории
 History.prototype.restoreObjectState = function(obj) {
-    if (obj) {
+    if (obj.type == 'removed') { 
+        this.canvas.add(obj.can_el);
+    } else if (obj.type == 'restored') {
+        this.canvas.remove(obj.can_el);
+    } else {
         obj.can_el.set({
             left: obj.left, top: obj.top,
             scaleX: obj.scaleX, scaleY: obj.scaleY,
             angle: obj.angle,
             flipX: obj.flipX, flipY: obj.flipY
         }).setCoords();
-        this.canvas.renderAll();
     }
+    this.canvas.renderAll();
 }
+
 History.prototype.backHistory = function() {
     var back = History.back.pop();
     if (back) {
-        History.forward.push(this.setState(back));
+        var type;
+        if(back.type == 'removed')  { type = 'restored' };
+        if(back.type == 'restored') { type = 'removed' };
+        History.forward.push(this.setState(back, type));
         this.restoreObjectState(back);
     }
     this.setButtonsState();
 }
+
 History.prototype.forwardHistory = function() {
     var forward = History.forward.pop();
     if (forward) {
-        History.back.push(this.setState(forward));
+        var type;
+        if(forward.type == 'removed')  { type = 'restored' };
+        if(forward.type == 'restored') { type = 'removed' };
+        History.back.push(this.setState(forward, type));
         this.restoreObjectState(forward);
     }
     this.setButtonsState();
 }
 
 // запоминает состояние объекта
-History.prototype.setState = function(data) {
+History.prototype.setState = function(data, type) {
     var state = {};
+    state['type'] = type || 'modified';
     state['can_el'] = data.can_el;
     state['left']   = data.can_el.getLeft();
     state['top']    = data.can_el.getTop();
