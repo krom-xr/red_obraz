@@ -21,21 +21,25 @@ var History = function(canvas, options) {
 
     var _selected = {}
     $(document).on('story:add', function(e, data) {
-        if(data.type == 'object:selected') { _selected = it.setState(data) };
+        // data.type can be object:selected, object:modified, object:removed, object:added
+        if(data.type == 'object:selected') { _selected = it.setState(data.can_el) };
         if(data.type == 'object:modified') {
             if (_selected.can_el != data.can_el) {
-                console.log('History - объекты не равны', _selected.can_el, data.can_el);
-            } else {
-                History.back.push(_selected);
+                //console.log('History - объекты не равны', _selected.can_el, data.can_el);
+            };
                 History.forward = [];
-                _selected = it.setState(data);
-            }
+                History.back.push(_selected);
+                _selected = it.setState(data.can_el);
         }
         if (data.type == 'object:removed') {
-            _selected = it.setState(data, 'removed');
             History.forward = [];
-            History.back.push(_selected);
+            History.back.push(it.setState(data.can_el, 'removed'));
         };
+        if (data.type == 'object:added') {
+            History.forward = [];
+            History.back.push(it.setState(data.can_el, 'restored'))
+        };
+        if (data.type == 'clearAll') { History.forward = []; History.back = [] };
         it.setButtonsState();
     });
 }
@@ -44,20 +48,35 @@ History.back = [];
 History.forward = [];
 
 // Восстанавливает состояние объекта полученное из истории
-History.prototype.restoreObjectState = function(obj) {
-    if (obj.type == 'removed') { 
-        this.canvas.add(obj.can_el);
-    } else if (obj.type == 'restored') {
-        this.canvas.remove(obj.can_el);
+History.prototype.restoreObjectState = function(state) {
+    var it = this;
+    // здесь следует понимать, что раз был удален - значит надо восстановить,
+    // раз был восстановлен - значит надо удалить
+    
+    // TODO тут код переписать
+    if (state.can_el instanceof Array) {
+        this.canvas.deactivateAll().renderAll();
+        $.each(state.can_el, function(i, obj_el) { it.restoreObjectState(obj_el) });
     } else {
-        obj.can_el.set({
-            left: obj.left, top: obj.top,
-            scaleX: obj.scaleX, scaleY: obj.scaleY,
-            angle: obj.angle,
-            flipX: obj.flipX, flipY: obj.flipY
-        }).setCoords();
+        if (state.type == 'removed') { 
+            this.canvas.add(state.can_el);
+        } else if (state.type == 'restored') {
+            this.canvas.remove(state.can_el);
+        } else {
+            state.can_el.setAngle(state.json.angle);
+            state.can_el.scaleX = state.json.scaleX;
+            state.can_el.scaleY = state.json.scaleY;
+            state.can_el.flipX  = state.json.flipX;
+            state.can_el.flipY  = state.json.flipY;
+            state.can_el.left   = state.json.left;
+            state.can_el.top    = state.json.top;
+            state.can_el.setCoords();
+        }
     }
     this.canvas.renderAll();
+    //obj.can_el.scale(0.5);
+    //this.canvas.renderAll();
+        //obj.can_el.scaleY = obj.scaleY;
 }
 
 History.prototype.backHistory = function() {
@@ -66,7 +85,8 @@ History.prototype.backHistory = function() {
         var type;
         if(back.type == 'removed')  { type = 'restored' };
         if(back.type == 'restored') { type = 'removed' };
-        History.forward.push(this.setState(back, type));
+        if (back.can_el instanceof Array) { this.canvas.deactivateAll().renderAll() };
+        History.forward.push(this.setState(back.can_el, type));
         this.restoreObjectState(back);
     }
     this.setButtonsState();
@@ -78,27 +98,51 @@ History.prototype.forwardHistory = function() {
         var type;
         if(forward.type == 'removed')  { type = 'restored' };
         if(forward.type == 'restored') { type = 'removed' };
-        History.back.push(this.setState(forward, type));
+        History.back.push(this.setState(forward.can_el, type));
         this.restoreObjectState(forward);
     }
     this.setButtonsState();
 }
 
 // запоминает состояние объекта
-History.prototype.setState = function(data, type) {
-    var state = {};
-    state['type'] = type || 'modified';
-    state['can_el'] = data.can_el;
-    state['left']   = data.can_el.getLeft();
-    state['top']    = data.can_el.getTop();
-    state['width']  = data.can_el.getWidth();
-    state['height'] = data.can_el.getHeight();
-    state['scaleX'] = data.can_el.get('scaleX');
-    state['scaleY'] = data.can_el.get('scaleY');
-    state['angle']  = data.can_el.getAngle();
-    state['flipX']  = data.can_el.get('flipX')
-    state['flipY']  = data.can_el.get('flipY')
-    //state['']     =
+History.prototype.setState = function(can_el, type, group_el) {
+    var it = this;
+    var state = {'objects': []};
+
+    if (can_el instanceof Array) {
+        console.log('array');
+        state['can_el'] = Array();
+        $.each(can_el, function(i, val) { state['can_el'].push(it.setState(val.can_el, type)) }); 
+    } else if (can_el.type == 'group') {
+        state['can_el'] = Array();
+        $.each(can_el.objects, function(i, val) { 
+            state['can_el'].push(it.setState(val, type, can_el.toJSON()));
+        });
+    } else {
+        state['can_el']  = can_el;
+        state['type']    = type || 'modified';
+        //console.log('bef error', can_el);
+        state['json']    = can_el.toJSON();
+
+        if (group_el) {
+            console.log(group_el);
+
+            var groupLeft   = group_el.left;
+            var groupTop    = group_el.top;
+            var groupAngle  = group_el.angle * (Math.PI / 180);
+            var objectLeft  = can_el.get('originalLeft');
+            var objectTop   = can_el.get('originalTop');
+            var rotatedTop  =  Math.cos(groupAngle) * can_el.get('top') + Math.sin(groupAngle) * can_el.get('left');
+            var rotatedLeft = -Math.sin(groupAngle) * can_el.get('top') + Math.cos(groupAngle) * can_el.get('left');
+
+            state.json.angle  = can_el.getAngle() + group_el.angle;
+            state.json.left   = groupLeft + rotatedLeft * group_el.scaleX;
+            state.json.top    = groupTop + rotatedTop * group_el.scaleY;
+            state.json.scaleX = can_el.get('scaleX') * group_el.scaleX;
+            state.json.scaleY = can_el.get('scaleY') * group_el.scaleY;
+            //console.log(state);
+        };
+    };
     return state;
 }
 
