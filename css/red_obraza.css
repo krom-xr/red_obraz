@@ -1,4 +1,22 @@
 a.inactive{ cursor: default; opacity: 0.5 }
 a.removeAll.inactive{ cursor: pointer; opacity: 1 }
 
-.p6{ background: url(../images/clone.png) no-repeat 0 50% }
+a.clone{ background: url(../images/clone.png) no-repeat 0 50% }
+
+a.backgrounds { position: relative }
+a.backgrounds ul {
+    position: absolute;
+    z-index: 100;
+    /*top: -10px;*/
+    font-size: 14px;
+    display: none;
+    list-style: none;
+    background: gray;
+    width: 200px;
+}
+
+a.backgrounds ul li {
+    cursor: pointer;
+}
+
+

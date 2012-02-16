@@ -90,14 +90,22 @@
                                 </div>
                             	<div class="but"><a href="#">По дате</a><a href="#" class="active">По цене</a></div>
                                 <div class="images">
-                                	<a href="#"><img src="images/6.png" alt="" /></a><a href="#"><img src="images/7.png" alt="" /></a>
-                                	<a href="#"><img src="images/8.png" alt="" /></a><a href="#"><img src="images/9.png" alt="" /></a>
-                                	<a href="#"><img src="images/6.png" alt="" /></a><a href="#"><img src="images/7.png" alt="" /></a>
-                                	<a href="#"><img src="images/8.png" alt="" /></a><a href="#"><img src="images/9.png" alt="" /></a>
-                                	<a href="#"><img src="images/6.png" alt="" /></a><a href="#"><img src="images/7.png" alt="" /></a>
-                                	<a href="#"><img src="images/8.png" alt="" /></a><a href="#"><img src="images/9.png" alt="" /></a>
-                                	<a href="#"><img src="images/6.png" alt="" /></a><a href="#"><img src="images/7.png" alt="" /></a>
-                                	<a href="#"><img src="images/8.png" alt="" /></a><a href="#"><img src="images/9.png" alt="" /></a>
+                                    <a href="#"><img src="images/6.png" data-bgrs='images/6.png,images/7.png,images/8.png'  alt="" /></a>
+                                    <a href="#"><img src="images/7.png" data-bgrs='images/6.png,images/7.png,images/8.png'  alt="" /></a>
+                                    <a href="#"><img src="images/8.png" data-bgrs='images/6.png,images/7.png,images/8.png'  alt="" /></a>
+                                    <a href="#"><img src="images/9.png" data-bgrs='images/6.png,images/7.png,images/8.png'  alt="" /></a>
+                                    <a href="#"><img src="images/6.png" data-bgrs='images/6.png,images/7.png,images/8.png'  alt="" /></a> 
+                                    <a href="#"><img src="images/7.png" data-bgrs='images/6.png,images/7.png,images/8.png'  alt="" /></a>
+                                    <a href="#"><img src="images/8.png" data-bgrs='images/6.png,images/7.png,images/8.png'  alt="" /></a>
+                                    <a href="#"><img src="images/9.png" data-bgrs='images/6.png,images/7.png,images/8.png'  alt="" /></a>
+                                    <a href="#"><img src="images/6.png" data-bgrs='images/6.png,images/7.png,images/8.png'  alt="" /></a>
+                                    <a href="#"><img src="images/7.png" data-bgrs='images/6.png,images/7.png,images/8.png'  alt="" /></a>
+                                    <a href="#"><img src="images/8.png" data-bgrs='images/6.png,images/7.png,images/8.png'  alt="" /></a>
+                                    <a href="#"><img src="images/9.png" data-bgrs='images/6.png,images/7.png,images/8.png'  alt="" /></a>
+                                    <a href="#"><img src="images/6.png" data-bgrs='images/6.png,images/7.png,images/8.png'  alt="" /></a>
+                                    <a href="#"><img src="images/7.png" alt="" /></a>
+                                    <a href="#"><img src="images/8.png" alt="" /></a>
+                                    <a href="#"><img src="images/9.png" alt="" /></a>
                                 </div>
                             </div>
                             <div class="red">
@@ -156,7 +164,11 @@
                                             </table>
                                         </div>
                                     </div>
-                                	<div class="stoit"><a href="#" class="button">сохранить</a><span>Общая стоимость: <strong>15 650 руб</strong></span><a href="#" class="button2">купить всё</a></div>
+                                    <div class="stoit">
+                                        <a href="#"  class="button">сохранить</a>
+                                        <span>Общая стоимость: <strong>15 650 руб</strong></span>
+                                        <a href="#" class="button2">купить всё</a>
+                                    </div>
                                 </div>
                             	<div class="panel " disabled >
                                 	<a href="#" class="button1">оформление</a>
@@ -169,7 +181,7 @@
                                 	<a href="#" class="p6 clone inactive" title="клонировать">&nbsp;</a>
                                     <!--<a href="#" class="p4 zoom_inc">+</a>-->
                                     <!--<a href="#" class="p4 zoom_dec">-</a>-->
-                                	<a href="#" class="p5">&nbsp;</a>
+                                    <a href="#" class="p5 backgrounds inactive">&nbsp;</a>
                                 </div>
                                 <div class="drop">
                                     <canvas id="c" style="border: 1px solid rgb(204, 204, 204);" width="1000" height="600px"  ></canvas>
@@ -295,49 +307,51 @@
 </div>
 
 <div class="window" id="save">
-	<div class="close"><span>Закрыть</span><strong>Сохранение образа</strong></div>
-    <div class="form_save">
-    	<div class="input"><label>Название:</label><p><input type="text" value="" name="login" /></p></div>
-        <div class="input"><label>Описание:</label><p><textarea name="text_op" rows="0" cols="0"></textarea></p></div>
-    	<div class="input">
-        	<label>Стиль:</label><p><input type="submit" value="" name="go_st" id="srch_st" /><input type="text" value="Поиск стиля" onfocus="if (this.value == 'Поиск стиля') {this.value ='';this.style.color='#000';}" onblur="if (this.value == '') {this.value='Поиск стиля';this.style.color='#bcbcbc';}" name="q_st" class="srch_st" /></p>
-        	<div class="checks">
-            	<label><input type="checkbox" checked="checked" value="" name="filtr" /><span>Весенняя рапсодия</span></label>
-            	<label><input type="checkbox" value="" name="filtr" /><span>пляжная вечеринка</span></label>
-            	<label><input type="checkbox" value="" name="filtr" /><span>madonna</span></label>
-            	<label><input type="checkbox" value="" name="filtr" /><span>весна 2011</span></label>
-            	<label><input type="checkbox" value="" name="filtr" /><span>весна 2011</span></label>
-            	<label><input type="checkbox" value="" name="filtr" /><span>Dolce</span></label>
-            	<label><input type="checkbox" value="" name="filtr" /><span>Dolce</span></label>
-            	<label><input type="checkbox" value="" name="filtr" /><span>madonna</span></label>
-            	<label><input type="checkbox" value="" name="filtr" /><span>пляжная вечеринка</span></label>
-            	<label><input type="checkbox" value="" name="filtr" /><span>Весенняя рапсодия</span></label>
+    <form action="" method="get" accept-charset="utf-8" id="save_form">
+        <div class="close"><span>Закрыть</span><strong>Сохранение образа</strong></div>
+        <div class="form_save">
+            <div class="input"><label>Название:</label><p><input type="text" value="" name="login" /></p></div>
+            <div class="input"><label>Описание:</label><p><textarea name="text_op" rows="0" cols="0"></textarea></p></div>
+            <div class="input">
+                <label>Стиль:</label><p><input type="submit" value="" name="go_st" id="srch_st" /><input type="text" value="Поиск стиля" onfocus="if (this.value == 'Поиск стиля') {this.value ='';this.style.color='#000';}" onblur="if (this.value == '') {this.value='Поиск стиля';this.style.color='#bcbcbc';}" name="q_st" class="srch_st" /></p>
+                <div class="checks">
+                    <label><input type="checkbox" checked="checked" value="" name="filtr" /><span>Весенняя рапсодия</span></label>
+                    <label><input type="checkbox" value="" name="filtr" /><span>пляжная вечеринка</span></label>
+                    <label><input type="checkbox" value="" name="filtr" /><span>madonna</span></label>
+                    <label><input type="checkbox" value="" name="filtr" /><span>весна 2011</span></label>
+                    <label><input type="checkbox" value="" name="filtr" /><span>весна 2011</span></label>
+                    <label><input type="checkbox" value="" name="filtr" /><span>Dolce</span></label>
+                    <label><input type="checkbox" value="" name="filtr" /><span>Dolce</span></label>
+                    <label><input type="checkbox" value="" name="filtr" /><span>madonna</span></label>
+                    <label><input type="checkbox" value="" name="filtr" /><span>пляжная вечеринка</span></label>
+                    <label><input type="checkbox" value="" name="filtr" /><span>Весенняя рапсодия</span></label>
+                </div>
             </div>
-        </div>
-    	<div class="input" style="margin:0;"><label>Конкурс:</label>
-        	<div class="best_statii">
-                <ul>
-                    <li>
-                    	<div class="radio"><input type="radio" value="1" name="kon" /></div>
-                        <div class="tit">«<a href="#">весна весной, а лето уже близко</a>»</div>
-                        <a href="#"><img src="images/11.gif" alt="" /></a>
-                        <span>22 апреля 2011<br />Количество просмотров — 34<br />Автор конкурса: <a href="#" class="user">Sonia</a></span>
-                    </li>
-                    <li>
-                    	<div class="radio"><input type="radio" value="1" name="kon" /></div>
-                        <div class="tit">«<a href="#">весна весной, а лето уже близко</a>»</div>
-                        <a href="#"><img src="images/11.gif" alt="" /></a>
-                        <span>22 апреля 2011<br />Количество просмотров — 34<br />Автор конкурса: <a href="#" class="user">Sonia</a></span>
-                    </li>
-                </ul>
+            <div class="input" style="margin:0;"><label>Конкурс:</label>
+                <div class="best_statii">
+                    <ul>
+                        <li>
+                            <div class="radio"><input type="radio" value="1" name="kon" /></div>
+                            <div class="tit">«<a href="#">весна весной, а лето уже близко</a>»</div>
+                            <a href="#"><img src="images/11.gif" alt="" /></a>
+                            <span>22 апреля 2011<br />Количество просмотров — 34<br />Автор конкурса: <a href="#" class="user">Sonia</a></span>
+                        </li>
+                        <li>
+                            <div class="radio"><input type="radio" value="1" name="kon" /></div>
+                            <div class="tit">«<a href="#">весна весной, а лето уже близко</a>»</div>
+                            <a href="#"><img src="images/11.gif" alt="" /></a>
+                            <span>22 апреля 2011<br />Количество просмотров — 34<br />Автор конкурса: <a href="#" class="user">Sonia</a></span>
+                        </li>
+                    </ul>
+                </div>
             </div>
+            <div class="input"><label>Опубликовать:</label><label class="ch"><input type="checkbox" value="" name="op" /><span>Если отмечено «Опубликовать», образ попадает в общий каталог</span></label></div>
         </div>
-    	<div class="input"><label>Опубликовать:</label><label class="ch"><input type="checkbox" value="" name="op" /><span>Если отмечено «Опубликовать», образ попадает в общий каталог</span></label></div>
-    </div>
-    <div class="buttons">
-    	<input class="button" type="submit" value="сохранить образ" name="enter" />
-        <a href="#" class="save_us"><span>сохранить как изображение</span></a>
-    </div>
+        <div class="buttons">
+            <input class="button" type="submit" value="сохранить образ" name="enter" id='save_btn' />
+            <a href="#" class="save_us" ><span>сохранить как изображение</span></a>
+        </div>
+    </form>
 </div>
 
 <div class="best_obraz" style="display: none">

@@ -24,12 +24,10 @@ var History = function(canvas, options) {
         // data.type can be object:selected, object:modified, object:removed, object:added
         if(data.type == 'object:selected') { _selected = it.setState(data.can_el) };
         if(data.type == 'object:modified') {
-            if (_selected.can_el != data.can_el) {
-                //console.log('History - объекты не равны', _selected.can_el, data.can_el);
-            };
-                History.forward = [];
-                History.back.push(_selected);
-                _selected = it.setState(data.can_el);
+            //if (_selected.can_el != data.can_el) { console.log('History - объекты не равны', _selected.can_el, data.can_el); };
+            History.forward = [];
+            History.back.push(_selected);
+            _selected = it.setState(data.can_el);
         }
         if (data.type == 'object:removed') {
             History.forward = [];
@@ -110,7 +108,6 @@ History.prototype.setState = function(can_el, type, group_el) {
     var state = {'objects': []};
 
     if (can_el instanceof Array) {
-        console.log('array');
         state['can_el'] = Array();
         $.each(can_el, function(i, val) { state['can_el'].push(it.setState(val.can_el, type)) }); 
     } else if (can_el.type == 'group') {
@@ -121,12 +118,9 @@ History.prototype.setState = function(can_el, type, group_el) {
     } else {
         state['can_el']  = can_el;
         state['type']    = type || 'modified';
-        //console.log('bef error', can_el);
         state['json']    = can_el.toJSON();
 
         if (group_el) {
-            console.log(group_el);
-
             var groupLeft   = group_el.left;
             var groupTop    = group_el.top;
             var groupAngle  = group_el.angle * (Math.PI / 180);
@@ -140,7 +134,6 @@ History.prototype.setState = function(can_el, type, group_el) {
             state.json.top    = groupTop + rotatedTop * group_el.scaleY;
             state.json.scaleX = can_el.get('scaleX') * group_el.scaleX;
             state.json.scaleY = can_el.get('scaleY') * group_el.scaleY;
-            //console.log(state);
         };
     };
     return state;
