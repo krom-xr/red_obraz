@@ -5,7 +5,6 @@
 	<meta http-equiv="Content-Language" content="ru" />
 <title></title>
     <link href="css/style.css" rel="stylesheet" type="text/css" />
-    <link href="css/red_obraza.css" rel="stylesheet" type="text/css" />
    	<script type="text/javascript" src="js/jquery.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.min.js" type="text/javascript" charset="utf-8"></script>
 	<script type="text/javascript" src="js/jquery.easing.1.2.js"></script>
@@ -16,6 +15,7 @@
 	<script type="text/javascript" src="js/history.js"></script>
 	<script type="text/javascript" src="js/red_obraza.js"></script>
 
+    <link href="css/red_obraza.css" rel="stylesheet" type="text/css" />
 <!--[if IE]>
 	<link rel="stylesheet" href="css/ie.css" type="text/css" media="screen" />
 <![endif]-->
@@ -25,6 +25,41 @@
 </head>
 
 <body class="inner" id="redactor">
+
+    <div >
+        <form id="custom_text" action="" method="post">
+            <div>
+                <select name="font" style="display: none">
+                    <option value="CA_BND_Web_Bold_700" class="CA_BND_Web_Bold_700">CA_BND_Web_Bold_700</option>
+                    <option value="CrashCTT_400" class="CrashCTT_400">CrashCTT_400</option>
+                    <option value="DejaVu_Serif_400" class="DejaVu_Serif_400">DejaVu_Serif_400</option>
+                    <option value="Delicious_500" class="Delicious_500">Delicious_500</option>
+                    <option value="Encient_German_Gothic_400" class="Encient_German_Gothic_400">Encient_German_Gothic_400</option>
+                    <option value="Globus_500" class="Globus_500">Globus_500</option>
+                    <option value="Modernist_One_400" class="Modernist_One_400">Modernist_One_400</option>
+                    <option value="OdessaScript_500" class="OdessaScript_500">OdessaScript_500</option>
+                    <option value="Quake_Cyr" class="Quake_Cyr">Quake_Cyr</option>
+                    <option value="Tallys_400" class="Tallys_400">Tallys_400</option>
+                    <option value="Terminator_Cyr" class="Terminator_Cyr">Terminator_Cyr</option>
+                    <option value="Times_New_Roman" class="Times_New_Roman">Times_New_Roman</option>
+                    <option value="Vampire95" class="Vampire95">Vampire95</option>
+                </select>
+                <div class="font_selector"> 
+                    <div class="current_font" data-font="CrashCTT_400" >CrashCTT_400</div> 
+                    <ul>
+                        <li class="CA_BND_Web_Bold_700">CA_BND_Web_Bold_700</li>
+                        <li class="CrashCTT_400">CrashCTT_400</li>
+                        <li class="DejaVu_Serif_400">DejaVu_Serif_400</li>
+                        <li class="Delicious_500">Delicious_500</li>
+                    </ul>
+                </div> 
+            </div> 
+            <div>
+                <textarea>Теееекст</textarea> 
+            </div> 
+            <b class="add_text" style="cursor: pointer">добавить</b> 
+        </form>
+    </div>
 
 <div id="content">
    	<div class="fix">

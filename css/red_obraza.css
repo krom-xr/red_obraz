@@ -20,3 +20,28 @@ a.backgrounds ul li {
 }
 
 
+#custom_text{ background: gray; position: absolute; left: 0; top: 0; z-index: 1000; border: 1px solid black; } 
+#custom_text .font_selector .current_font { background: white; border: 1px solid black; cursor: pointer; padding: 4px }
+#custom_text .font_selector ul { display: none; z-index: 1; position: absolute; background: white; border: 1px solid black; left: 0px; min-width: 100px;  }
+#custom_text .font_selector ul li { padding: 2px 10px 2px 10px; border-bottom: 1px solid gray; cursor: pointer;  }
+#custom_text .font_selector ul li:hover { background: #cccccc }
+
+
+
+/*body{*/
+    /*font-family: CrashCTT_400;*/
+/*}*/
+
+.CA_BND_Web_Bold_700 { font-family: 'CA_BND_Web_Bold_700';};
+.CrashCTT_400{ font-family:  'CrashCTT_400' }
+.DejaVu_Serif_400{ font-family:  'DejaVu_Serif_400' }
+.Delicious_500{ font-family:  'Delicious_500' }
+.Encient_German_Gothic_400{ font-family:  'Encient_German_Gothic_400' }
+.Globus_500{ font-family:  'Globus_500' }
+.Modernist_One_400{ font-family:  'Modernist_One_400' }
+.OdessaScript_500{ font-family: 'OdessaScript_500' }
+.Quake_Cyr{ font-family: 'Quake_Cyr' }
+.Tallys_400{ font-family: 'Tallys_400' }
+.Terminator_Cyr{ font-family: 'Terminator_Cyr' }
+.Times_New_Roman{ font-family:  'Times_New_Roman' }
+.Vampire95{ font-family: 'Vampire95' }

@@ -17,6 +17,17 @@ var CanvasManager = function(options) {
 
         save_form:      '#save_form',
 
+        text_form: {
+            id:            '#custom_text',
+            font_selector: '#custom_text .font_selector',
+            current_font:  '#custom_text .font_selector .current_font',
+            fonts:         '#custom_text .font_selector ul',
+            font:          '#custom_text .font_selector li',
+
+            text:          '#custom_text textarea',
+            add_text:      '#custom_text .add_text',
+        },      
+
         json: false, 
 
         MAX_WIDTH: 350,
@@ -31,6 +42,7 @@ var CanvasManager = function(options) {
     
     $(it.opt.items_selector).draggable({ helper: 'clone', });
 
+    this.fontsLoaded = [];
 
     $(this.opt.c_id).droppable({
         drop: function(e, ui) {
@@ -73,6 +85,7 @@ var CanvasManager = function(options) {
         $(document).trigger('story:add', { type: 'object:selected', can_el: e.memo.target});
         it.can_el = e.memo.target;
         it.buttonStatus('selected');
+        if (e.memo.target.type == 'text') { it.textSelected() };
     });
     this.canvas.observe('object:modified', function(e) {
         $(document).trigger('story:add', { type: 'object:modified', can_el: e.memo.target});
@@ -165,6 +178,67 @@ var CanvasManager = function(options) {
         return false;
     })
 
+    
+
+    $(this.opt.text_form.id).draggable();
+
+    // выбор шрифта
+    $(this.opt.text_form.current_font).click(function() { $(this).parent().find('ul').toggle() });
+    $(this.opt.text_form.font).click(function() {
+        $(it.opt.text_form.current_font).html($(this).html());
+        $(it.opt.text_form.current_font).attr('data-font', $(this).attr('class'));
+        $(it.opt.text_form.fonts).hide();
+        it.loadFont($(this).attr('class'));
+        if (!it.can_el) { return false };
+        if (it.can_el.type == 'text') { 
+            it.can_el.fontFamily = $(this).attr('class');
+            it.canvas.renderAll();
+        };
+    });
+
+    //добавление текста
+    $(this.opt.text_form.add_text).click(function() {
+        var font = $(it.opt.text_form.current_font).attr('data-font');
+        var text = $(it.opt.text_form.text).val();
+        if (font) {
+            if (!CanvasManager.fontsLoaded.length) { it.loadFont(font) };
+            it.can_el = new fabric.Text(text, {
+                fontFamily: font,
+                left: 100, 
+                top: 100 ,
+                fill: '#000000',
+            })
+            it.canvas.add(it.can_el);
+            it.can_el.setActive(true);
+            it.canvas.renderAll();
+        };
+    });
+
+    $(this.opt.text_form.text).keyup(function() {
+        if (!it.can_el) { return false };
+        if (it.can_el.type != 'text') { return false };
+        it.can_el.text = $(this).val();
+        it.canvas.renderAll();
+    });
+
+
+    //$(this.opt.text_form).find('select').change(function() {
+        //it.loadFont($(this).val());
+    //})
+    //$(this.opt.text_form).submit(function() {
+        //var font = $(this).find('select').val();
+        //var text = $(this).find('textarea').val();
+        //if(font) {
+            //it.canvas.add(new fabric.Text(text, {
+                //fontFamily: font,
+                //left: 100, 
+                //top: 100 ,
+                //fill: '#000000',
+            //})).renderAll();
+        //}
+        //return false;
+    //})
+
 
     //var _scale = 1;
     //$('a.zoom_inc').click(function() {
@@ -184,10 +258,31 @@ var CanvasManager = function(options) {
         //})
     //})
 };
+
+// загружает шрифты, если они еще не загружены
+CanvasManager.fontsLoaded = [];
+CanvasManager.prototype.loadFont = function(font) {
+    if ($.inArray(font, CanvasManager.fontsLoaded) == -1) {
+        $('body').append("<script src='js/fonts/" + font + ".font.js'></script>");
+        CanvasManager.fontsLoaded.push(font);
+    }
+}
+
 CanvasManager.prototype.loadFromJSON = function(json) {
     if (!(typeof json === 'string')) { json = JSON.stringify(json) };
     this.canvas.loadFromJSON(json).renderAll();
 }
+
+CanvasManager.prototype.textSelected = function() {
+    if (this.can_el.type != 'text') { return false };
+    $(this.opt.text_form.text).val(this.can_el.text);
+    $(this.opt.text_form.current_font).attr('data-font', this.can_el.fontFamily );
+    var font = $(this.opt.text_form.fonts).find('.' + this.can_el.fontFamily).html();
+    $(this.opt.text_form.current_font).html(font);
+
+
+}
+
 CanvasManager.prototype.buttonStatus = function(type) {
     if (type == 'cleared' || type == 'removed') {
         $(this.opt.sendBackwards).addClass('inactive');
@@ -215,6 +310,7 @@ $(document).ready(function(){
     c = new CanvasManager({
         json:'{"objects":[{"type":"image","left":436,"top":213,"width":94,"height":94,"fill":"rgb(0,0,0)","overlayFill":null,"stroke":null,"strokeWidth":1,"scaleX":1,"scaleY":1,"angle":0,"flipX":false,"flipY":false,"opacity":1,"selectable":true,"src":"file:///home/mn/Dropbox/www/dressed/maketer/red_obraz/images/9.png","filters":[]},{"type":"image","left":262,"top":250,"width":94,"height":94,"fill":"rgb(0,0,0)","overlayFill":null,"stroke":null,"strokeWidth":1,"scaleX":1,"scaleY":1,"angle":0,"flipX":false,"flipY":false,"opacity":1,"selectable":true,"src":"file:///home/mn/Dropbox/www/dressed/maketer/red_obraz/images/7.png","filters":[]},{"type":"image","left":622,"top":148,"width":94,"height":94,"fill":"rgb(0,0,0)","overlayFill":null,"stroke":null,"strokeWidth":1,"scaleX":1,"scaleY":1,"angle":0,"flipX":false,"flipY":false,"opacity":1,"selectable":true, "bgrs": "testing","src":"file:///home/mn/Dropbox/www/dressed/maketer/red_obraz/images/9.png","filters":[]}],"background":"rgba(0, 0, 0, 0)"}'
     });
+
 });
 
 
