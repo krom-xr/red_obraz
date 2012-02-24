@@ -79,6 +79,7 @@ var CanvasManager = function(options) {
 
 
     this.can_el; // текущий элемент холста
+    this.canvas.observe('mouse:down', function(e) { if (!e.memo.target) { it.buttonStatus('cleared') } });
     this.canvas.observe('object:scaling', function(e) { 
         if(e.memo.target.getWidth() > it.opt.MAX_WIDTH) { e.memo.target.scaleToWidth(it.opt.MAX_WIDTH) };
         if(e.memo.target.getWidth() < it.opt.MIN_WIDTH) { e.memo.target.scaleToWidth(it.opt.MIN_WIDTH) };
@@ -347,7 +348,7 @@ CanvasManager.prototype.buttonStatus = function(type) {
         $(this.opt.clone)        .removeClass('inactive');
         $(this.opt.remove)       .removeClass('inactive');
         $(this.opt.removeAll)    .removeClass('inactive');
-        if (this.can_el.bgrs) { $(this.opt.backgrounds)  .removeClass('inactive') };
+        this.can_el.bgrs ? $(this.opt.backgrounds).removeClass('inactive') : $(this.opt.backgrounds).addClass('inactive');
         if (this.can_el.type == 'text') { 
             $(this.opt.text_form.id).removeClass('inactive');
         } else {
