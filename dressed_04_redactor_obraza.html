@@ -11,6 +11,7 @@
 	<script type="text/javascript" src="js/script.js"></script>
 
 	<script type="text/javascript" src="js/fabric.min.js"></script>
+	<script type="text/javascript" src="js/iColorPicker.js"></script>
 
 	<script type="text/javascript" src="js/history.js"></script>
 	<script type="text/javascript" src="js/red_obraza.js"></script>
@@ -26,40 +27,35 @@
 
 <body class="inner" id="redactor">
 
-    <div >
-        <form id="custom_text" action="" method="post">
-            <div>
-                <select name="font" style="display: none">
-                    <option value="CA_BND_Web_Bold_700" class="CA_BND_Web_Bold_700">CA_BND_Web_Bold_700</option>
-                    <option value="CrashCTT_400" class="CrashCTT_400">CrashCTT_400</option>
-                    <option value="DejaVu_Serif_400" class="DejaVu_Serif_400">DejaVu_Serif_400</option>
-                    <option value="Delicious_500" class="Delicious_500">Delicious_500</option>
-                    <option value="Encient_German_Gothic_400" class="Encient_German_Gothic_400">Encient_German_Gothic_400</option>
-                    <option value="Globus_500" class="Globus_500">Globus_500</option>
-                    <option value="Modernist_One_400" class="Modernist_One_400">Modernist_One_400</option>
-                    <option value="OdessaScript_500" class="OdessaScript_500">OdessaScript_500</option>
-                    <option value="Quake_Cyr" class="Quake_Cyr">Quake_Cyr</option>
-                    <option value="Tallys_400" class="Tallys_400">Tallys_400</option>
-                    <option value="Terminator_Cyr" class="Terminator_Cyr">Terminator_Cyr</option>
-                    <option value="Times_New_Roman" class="Times_New_Roman">Times_New_Roman</option>
-                    <option value="Vampire95" class="Vampire95">Vampire95</option>
-                </select>
-                <div class="font_selector"> 
-                    <div class="current_font" data-font="CrashCTT_400" >CrashCTT_400</div> 
-                    <ul>
-                        <li class="CA_BND_Web_Bold_700">CA_BND_Web_Bold_700</li>
-                        <li class="CrashCTT_400">CrashCTT_400</li>
-                        <li class="DejaVu_Serif_400">DejaVu_Serif_400</li>
-                        <li class="Delicious_500">Delicious_500</li>
-                    </ul>
-                </div> 
-            </div> 
-            <div>
-                <textarea>Теееекст</textarea> 
-            </div> 
-            <b class="add_text" style="cursor: pointer">добавить</b> 
-        </form>
+<div id="custom_text" class=''>
+    <div style="height: 50px">
+        <div class="align _left active" data-align="left"  ></div>
+        <div class="align _center"      data-align="center"></div>
+        <div class="align _right"       data-align="right" ></div>
     </div>
+    <div style="clear:both"></div>
+    <div>
+        <div class='text_style fontStyle italic' data-style="italic">курсив</div>
+        <div class='text_style textDecoration underline' data-style="underline">подчеркнутый</div>
+        <div class='text_style textDecoration through' data-style="line-through">зачеркнутый</div>
+        <div class='text_style shadow' data-style="shadow">с тенью</div>
+        <div class='text_style casechange uppercase' data-style="uppercase">ВЕРХНИЙ РЕГИСТР</div>
+        <div class='text_style casechange lowercase' data-style="lowercase">нижний регистр</div>
+    </div>
+
+    <div><input type="text" class="iColorPicker" id="textcolor" name="textcolor" value="#000000" /></div>
+    <div><input type="text" class="iColorPicker" id="textbgr" name="textbgr" value="#ffffff" /></div> 
+    <div class="font_selector"> 
+        <div class="current_font" data-font="CrashCTT_400" >CrashCTT_400</div> 
+        <ul>
+            <li class="CA_BND_Web_Bold_700">CA_BND_Web_Bold_700</li>
+            <li class="CrashCTT_400">CrashCTT_400</li>
+            <li class="DejaVu_Serif_400">DejaVu_Serif_400</li>
+            <li class="Delicious_500">Delicious_500</li>
+        </ul>
+    </div> 
+    <textarea>Теееекст</textarea> 
+</div>
 
 <div id="content">
    	<div class="fix">
@@ -105,9 +101,12 @@
                 	<a href="#" class="close">Закрыть</a>
                 	<a href="#" class="win">&nbsp;</a>
                 	<a href="#" class="faq">&nbsp;</a>
-                	<span>Редактор образа</span> 
-                    <span id='back'    style='cursor: pointer'>"""назад"""</span> 
-                    <span id='forward' style='cursor: pointer'>"""вперед"""</span> 
+                	<span>Редактор образа</span>&nbsp;|&nbsp; 
+                    <span id='back'    style='cursor: pointer'>назад</span>&nbsp;
+                    <span id='forward' style='cursor: pointer'>вперед</span>&nbsp;|&nbsp;
+
+                    <span id='add_text' style='cursor: pointer'>добавить текст</span> 
+
 
                 </div>
                 <div class="width">

@@ -25,8 +25,16 @@ var CanvasManager = function(options) {
             font:          '#custom_text .font_selector li',
 
             text:          '#custom_text textarea',
-            add_text:      '#custom_text .add_text',
+
+            align:         '#custom_text .align',
+            text_style:    '#custom_text .text_style',
+
+            textcolor:    '#custom_text #textcolor',
+            textbgr:       '#custom_text #textbgr',
+
         },      
+        add_text:      '#add_text',
+        default_text:  'введите текст...',
 
         json: false, 
 
@@ -85,13 +93,14 @@ var CanvasManager = function(options) {
         $(document).trigger('story:add', { type: 'object:selected', can_el: e.memo.target});
         it.can_el = e.memo.target;
         it.buttonStatus('selected');
-        if (e.memo.target.type == 'text') { it.textSelected() };
+        //it.textSelected(); 
     });
     this.canvas.observe('object:modified', function(e) {
         $(document).trigger('story:add', { type: 'object:modified', can_el: e.memo.target});
     })
     this.canvas.observe('selection:cleared', function(e) { 
-        it.buttonStatus('cleared') 
+        it.buttonStatus('cleared');
+        //$(it.opt.text_form.id).hide();
     });
     this.canvas.observe('selection:created', function(e) {   
         $(document).trigger('story:add', { type: 'object:selected', can_el: e.memo.target});
@@ -197,29 +206,64 @@ var CanvasManager = function(options) {
     });
 
     //добавление текста
-    $(this.opt.text_form.add_text).click(function() {
+    $(this.opt.add_text).click(function() {
         var font = $(it.opt.text_form.current_font).attr('data-font');
-        var text = $(it.opt.text_form.text).val();
         if (font) {
+            it.canvas.deactivateAll();
+            $(it.opt.text_form.id).removeClass('inactive');
             if (!CanvasManager.fontsLoaded.length) { it.loadFont(font) };
-            it.can_el = new fabric.Text(text, {
+            $(it.opt.text_form.text).val(it.opt.default_text);
+            it.can_el = new fabric.Text(it.opt.default_text, {
                 fontFamily: font,
-                left: 100, 
-                top: 100 ,
+                left: it.canvas.width/2, 
+                top: it.canvas.height/2,
                 fill: '#000000',
+                textAlign: 'left',
             })
+            $(document).trigger('story:add', { type: 'object:added', can_el: it.can_el});
             it.canvas.add(it.can_el);
             it.can_el.setActive(true);
             it.canvas.renderAll();
         };
     });
 
+    //изменение текста при наборе
     $(this.opt.text_form.text).keyup(function() {
         if (!it.can_el) { return false };
         if (it.can_el.type != 'text') { return false };
         it.can_el.text = $(this).val();
         it.canvas.renderAll();
     });
+
+    //изменение выравнивания текста
+    $(this.opt.text_form.align).click(function() {
+        it.can_el.textAlign = $(this).attr('data-align');
+        it.canvas.renderAll();
+        var $this = this;
+        $(it.opt.text_form.align).each(function() { Boolean(this == $this) ? $(this).addClass('active') : $(this).removeClass('active') });
+    })
+
+    // изменение стиля текста ( курсив, подчеркивание, тень и т.д.)
+    $(this.opt.text_form.text_style).click(function() {
+        var $this = this;
+        var text_style = it.opt.text_form.text_style;
+        var active = $(this).toggleClass('active').hasClass('active');
+        if ($(this).hasClass('fontStyle')) { it.can_el.fontStyle = active ? 'italic' : '' } 
+        if ($(this).hasClass('textDecoration')) {
+            it.can_el.textDecoration = active ? $(this).attr('data-style') : false;
+            $(this).hasClass('underline') ? $(text_style + '.through').removeClass('active') : $(text_style + '.underline').removeClass('active');
+        };
+        $(this).hasClass('shadow') ? ( it.can_el.textShadow = active ? "2 2 2" : false ) : false;
+        if ($(this).hasClass('casechange')) {
+            it.can_el.text = $(this).hasClass('uppercase') ? it.can_el.text.toUpperCase() : it.can_el.text.toLowerCase();
+            $(this).removeClass('active');
+        };
+        it.canvas.renderAll();
+    });
+
+    //цвет для текста и фона
+    $(this.opt.text_form.textcolor).change(function() { it.can_el.fill = $(this).val();            it.canvas.renderAll(); });
+    $(this.opt.text_form.textbgr)  .change(function() { it.can_el.backgroundColor = $(this).val(); it.canvas.renderAll(); });
 
 
     //$(this.opt.text_form).find('select').change(function() {
@@ -273,15 +317,16 @@ CanvasManager.prototype.loadFromJSON = function(json) {
     this.canvas.loadFromJSON(json).renderAll();
 }
 
-CanvasManager.prototype.textSelected = function() {
-    if (this.can_el.type != 'text') { return false };
-    $(this.opt.text_form.text).val(this.can_el.text);
-    $(this.opt.text_form.current_font).attr('data-font', this.can_el.fontFamily );
-    var font = $(this.opt.text_form.fonts).find('.' + this.can_el.fontFamily).html();
-    $(this.opt.text_form.current_font).html(font);
+//CanvasManager.prototype.textSelected = function() {
+    //if (this.can_el.type != 'text') { $(this.opt.text_form.id).hide(); return false };
+    //$(this.opt.text_form.id).show();
+    //$(this.opt.text_form.text).val(this.can_el.text);
+    //$(this.opt.text_form.current_font).attr('data-font', this.can_el.fontFamily );
+    //var font = $(this.opt.text_form.fonts).find('.' + this.can_el.fontFamily).html();
+    //$(this.opt.text_form.current_font).html(font);
 
 
-}
+//}
 
 CanvasManager.prototype.buttonStatus = function(type) {
     if (type == 'cleared' || type == 'removed') {
@@ -293,6 +338,7 @@ CanvasManager.prototype.buttonStatus = function(type) {
         $(this.opt.remove)       .addClass('inactive');
         $(this.opt.removeAll)    .addClass('inactive');
         $(this.opt.backgrounds)  .addClass('inactive');
+        $(this.opt.text_form.id) .addClass('inactive');
     } else if(type == 'selected') {
         $(this.opt.sendBackwards).removeClass('inactive');
         $(this.opt.bringForward) .removeClass('inactive');
@@ -302,6 +348,11 @@ CanvasManager.prototype.buttonStatus = function(type) {
         $(this.opt.remove)       .removeClass('inactive');
         $(this.opt.removeAll)    .removeClass('inactive');
         if (this.can_el.bgrs) { $(this.opt.backgrounds)  .removeClass('inactive') };
+        if (this.can_el.type == 'text') { 
+            $(this.opt.text_form.id).removeClass('inactive');
+        } else {
+            $(this.opt.text_form.id).addClass('inactive');
+        }
     };
 }
 

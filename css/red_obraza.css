@@ -26,7 +26,32 @@ a.backgrounds ul li {
 #custom_text .font_selector ul li { padding: 2px 10px 2px 10px; border-bottom: 1px solid gray; cursor: pointer;  }
 #custom_text .font_selector ul li:hover { background: #cccccc }
 
+#custom_text .align { 
+    float: left; 
+    width:  32px; 
+    height: 32px; 
+    margin-left: 5px; 
+    border: 1px solid black; 
+    background: white;
+    cursor: pointer;
+}
+#custom_text .align.active { border: 2px solid black }
+#custom_text .align._left {  background-image: url(../images/align_left.png) }
+#custom_text .align._center{ background-image: url(../images/align_center.png) }
+#custom_text .align._right { background-image: url(../images/align_right.png) }
 
+#custom_text .text_style.italic {   font-style: italic }
+#custom_text .text_style.underline{ text-decoration: underline}
+#custom_text .text_style.though{  text-decoration: line-through}
+#custom_text .text_style.shadow{ text-shadow: black 1px 1px 2px ;   }
+#custom_text .text_style{ background: white; cursor: pointer }
+#custom_text .text_style.active{ background: blue }
+
+
+
+
+
+#custom_text.inactive { display: none; }
 
 /*body{*/
     /*font-family: CrashCTT_400;*/
