@@ -38,13 +38,16 @@ var CanvasManager = function(options) {
 
         json: false, 
 
-        MAX_WIDTH: 350,
+        MAX_SCALE: 5,// TODO возможно лучше вместо MAX_WIDTH - использовать MAX_SCALE
+
+        MAX_WIDTH: 550,
         MIN_WIDTH: 20,
     }, options);
 
     var WIDTH = $(this.opt.c_holder).width();
     var HEIGHT = $(this.opt.c_holder).height();
 
+    //WIDTH = 4000;
     $(this.opt.c_id).attr('width', WIDTH);
     $(this.opt.c_id).attr('height', HEIGHT);
     
@@ -67,7 +70,7 @@ var CanvasManager = function(options) {
                         bgrs: this.bgrs,
                     });
                 };
-                it.canvas.add(img.set({ left: left, top: top})).renderAll() 
+                it.canvas.add(img.set({ left: left, top: top}).setActive(true)).renderAll() 
                 $(document).trigger('story:add', { type: 'object:added', can_el: img});
             });
         }
@@ -80,15 +83,15 @@ var CanvasManager = function(options) {
 
     this.can_el; // текущий элемент холста
     this.canvas.observe('mouse:down', function(e) { if (!e.memo.target) { it.buttonStatus('cleared') } });
-    this.canvas.observe('object:scaling', function(e) { 
-        if(e.memo.target.getWidth() > it.opt.MAX_WIDTH) { e.memo.target.scaleToWidth(it.opt.MAX_WIDTH) };
-        if(e.memo.target.getWidth() < it.opt.MIN_WIDTH) { e.memo.target.scaleToWidth(it.opt.MIN_WIDTH) };
-    });
+
+    //не даем вылезти за пределы холста
     this.canvas.observe('object:moving', function(e) { 
         if(e.memo.target.left < e.memo.target.getWidth()/2)  { e.memo.target.set({left: e.memo.target.getWidth()/2 }) };
         if(e.memo.target.top  < e.memo.target.getHeight()/2) { e.memo.target.set({top:  e.memo.target.getHeight()/2 }) };
-        if(e.memo.target.left > WIDTH - e.memo.target.getWidth()/2)  { e.memo.target.set({left: WIDTH - e.memo.target.getWidth()/2 }) };
-        if(e.memo.target.top > HEIGHT - e.memo.target.getHeight()/2) { e.memo.target.set({top: HEIGHT - e.memo.target.getHeight()/2 }) };
+        var right_limit = WIDTH - e.memo.target.getWidth()/2;
+        var bottom_limit = HEIGHT - e.memo.target.getHeight()/2;
+        if(e.memo.target.left > (right_limit + right_limit   * it.zoom)) { e.memo.target.set({left: right_limit  + right_limit  * it.zoom }) };
+        if(e.memo.target.top >  (bottom_limit + bottom_limit * it.zoom)) { e.memo.target.set({top:  bottom_limit + bottom_limit * it.zoom }) };
     })
     this.canvas.observe('object:selected', function(e) {
         $(document).trigger('story:add', { type: 'object:selected', can_el: e.memo.target});
@@ -97,11 +100,23 @@ var CanvasManager = function(options) {
         //it.textSelected(); 
     });
     this.canvas.observe('object:modified', function(e) {
-        $(document).trigger('story:add', { type: 'object:modified', can_el: e.memo.target});
+        var can_el = e.memo.target;
+        $(document).trigger('story:add', { type: 'object:modified', can_el: can_el });
+        if (!it.zoom) { return false };
+        can_el.orig.scaleX = can_el.orig.scaleY = can_el.orig.scaleX * (can_el.scaleX / can_el.originalState.scaleX);
+        can_el.orig.left   = can_el.orig.left * (can_el.left / can_el.originalState.left);
+        can_el.orig.top    = can_el.orig.top  * (can_el.top  / can_el.originalState.top );
+    })
+    this.canvas.observe('object:scaling', function(e) {
+        if(e.memo.target.getWidth() > (it.opt.MAX_WIDTH + it.opt.MAX_WIDTH * it.zoom)) { e.memo.target.scaleToWidth(it.opt.MAX_WIDTH + it.opt.MAX_WIDTH * it.zoom) };
+        if(e.memo.target.getWidth() < (it.opt.MIN_WIDTH + it.opt.MIN_WIDTH * it.zoom)) { e.memo.target.scaleToWidth(it.opt.MIN_WIDTH + it.opt.MIN_WIDTH * it.zoom) };
+
+        // пропорциональное масштабирование
+        if (e.memo.target.scaleX == e.memo.target.scaleY) { return false };
+        it.canvas._currentTransform.action == 'scaleX' ? e.memo.target.scaleY = e.memo.target.scaleX : e.memo.target.scaleX = e.memo.target.scaleY;
     })
     this.canvas.observe('selection:cleared', function(e) { 
         it.buttonStatus('cleared');
-        //$(it.opt.text_form.id).hide();
     });
     this.canvas.observe('selection:created', function(e) {   
         $(document).trigger('story:add', { type: 'object:selected', can_el: e.memo.target});
@@ -266,6 +281,21 @@ var CanvasManager = function(options) {
     $(this.opt.text_form.textcolor).change(function() { it.can_el.fill = $(this).val();            it.canvas.renderAll(); });
     $(this.opt.text_form.textbgr)  .change(function() { it.can_el.backgroundColor = $(this).val(); it.canvas.renderAll(); });
 
+
+    this.zoom = 0;
+    $('#zoom').change(function() {
+        it.zoom = $(this).val()/100;
+        it.canvas.forEachObject(function(can_el) {
+            if (!can_el.orig) { can_el.orig = can_el.toObject() };
+            can_el.scaleX = can_el.orig.scaleX + can_el.orig.scaleX * it.zoom; 
+            can_el.scaleY = can_el.orig.scaleY + can_el.orig.scaleY * it.zoom; 
+            can_el.left   =  can_el.orig.left  + can_el.orig.left * it.zoom;
+            can_el.top    =  can_el.orig.top   + can_el.orig.top  * it.zoom;
+            can_el.setCoords();
+            if (!it.zoom) { can_el.orig = false };
+        })
+        it.canvas.renderAll();
+    });
 
     //$(this.opt.text_form).find('select').change(function() {
         //it.loadFont($(this).val());
