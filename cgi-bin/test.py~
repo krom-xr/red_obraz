@@ -1,0 +1,7 @@
+#!/usr/bin/python
+import sys
+import SimpleHTTPServer
+
+
+r = SimpleHTTPServer.SimpleHTTPRequestHandler.do_GET(request)
+sys.stdout.write("""Content-type: text/html\n\n""" + 'test')

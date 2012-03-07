@@ -14,13 +14,13 @@ var History = function(canvas, options) {
 
     this.setButtonsState();
 
-    $(this.opt.back).on('click',    function() { it.backHistory();    return false });
-    $(this.opt.forward).on('click', function() { it.forwardHistory(); return false });
+    jQuery(this.opt.back).on('click',    function() { it.backHistory();    return false });
+    jQuery(this.opt.forward).on('click', function() { it.forwardHistory(); return false });
 
     this.canvas = canvas;
 
     var _selected = {}
-    $(document).on('story:add', function(e, data) {
+    jQuery(document).on('story:add', function(e, data) {
         // data.type can be object:selected, object:modified, object:removed, object:added
         if(data.type == 'object:selected') { _selected = it.setState(data.can_el) };
         if(data.type == 'object:modified') {
@@ -54,7 +54,7 @@ History.prototype.restoreObjectState = function(state) {
     // TODO тут код переписать
     if (state.can_el instanceof Array) {
         this.canvas.deactivateAll().renderAll();
-        $.each(state.can_el, function(i, obj_el) { it.restoreObjectState(obj_el) });
+        jQuery.each(state.can_el, function(i, obj_el) { it.restoreObjectState(obj_el) });
     } else {
         if (state.type == 'removed') { 
             this.canvas.add(state.can_el);
@@ -109,10 +109,10 @@ History.prototype.setState = function(can_el, type, group_el) {
 
     if (can_el instanceof Array) {
         state['can_el'] = Array();
-        $.each(can_el, function(i, val) { state['can_el'].push(it.setState(val.can_el, type)) }); 
+        jQuery.each(can_el, function(i, val) { state['can_el'].push(it.setState(val.can_el, type)) }); 
     } else if (can_el.type == 'group') {
         state['can_el'] = Array();
-        $.each(can_el.objects, function(i, val) { 
+        jQuery.each(can_el.objects, function(i, val) { 
             state['can_el'].push(it.setState(val, type, can_el.toJSON()));
         });
     } else {
@@ -141,23 +141,23 @@ History.prototype.setState = function(can_el, type, group_el) {
 
 History.prototype.setButtonsState = function() {
     if (!History.back.length) {
-        $(this.opt.back).css('opacity', '.5');
-        $(this.opt.back).css('cursor', 'default');
+        jQuery(this.opt.back).css('opacity', '.5');
+        jQuery(this.opt.back).css('cursor', 'default');
 
     } else {
-        $(this.opt.back).css('opacity', '1');
-        $(this.opt.back).css('cursor', 'pointer');
+        jQuery(this.opt.back).css('opacity', '1');
+        jQuery(this.opt.back).css('cursor', 'pointer');
     }
     if (!History.forward.length) {
-        $(this.opt.forward).css('opacity', '.5');
-        $(this.opt.forward).css('cursor', 'default');
+        jQuery(this.opt.forward).css('opacity', '.5');
+        jQuery(this.opt.forward).css('cursor', 'default');
     } else {
-        $(this.opt.forward).css('opacity', '1');
-        $(this.opt.forward).css('cursor', 'pointer');
+        jQuery(this.opt.forward).css('opacity', '1');
+        jQuery(this.opt.forward).css('cursor', 'pointer');
     }
 }
 
 //h='';// it for debug
-//$(document).ready(function(){
+//jQuery(document).ready(function(){
     //h = new History();
 //});
